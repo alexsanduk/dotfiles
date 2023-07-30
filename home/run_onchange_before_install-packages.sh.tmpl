@@ -1,0 +1,64 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $taps := list
+     "heroku/brew"
+     "homebrew/cask"
+     "homebrew/cask-fonts" -}}
+
+{{ $brews := list
+     "bat"
+     "fd"
+     "gh"
+     "git"
+     "cmake"
+     "jq"
+     "pyenv"
+     "nvm"
+     "neovim"
+     "ripgrep"
+     "direnv"
+     "fzf"
+     "tmux"
+     "heroku"
+     "wget" -}}
+{{ $casks := list
+     "docker"
+     "google-chrome"
+     "google-earth-pro"
+     "iterm2"
+     "spotify"
+     "skype"
+     "teamviewer"
+     "transmission"
+     "zoom"
+     "visual-studio-code"
+     "1password-cli"
+     "1password"
+     "google-drive"
+     "teams"
+     "telegram"
+     "mactex"
+     "vlc" -}}
+
+{{ $extensions := list
+     "vscodevim.vim"
+     "ms-python.python"
+     "ms-vscode.cpptools"
+     "redhat.vscode-yaml" -}}
+
+brew bundle --no-lock --file=/dev/stdin --cleanup <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end -}}
+{{ range ($extensions | sortAlpha | uniq) -}}
+vscode "{{ . }}"
+{{ end -}}
+EOF
