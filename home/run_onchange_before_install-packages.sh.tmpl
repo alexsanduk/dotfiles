@@ -2,6 +2,10 @@
 
 set -eufo pipefail
 
+{{ if eq .chezmoi.arch "arm64" -}}
+sudo softwareupdate --install-rosetta
+{{ end -}}
+
 {{ $taps := list
      "heroku/brew"
      "homebrew/cask"
@@ -24,6 +28,8 @@ set -eufo pipefail
      "heroku"
      "wget" -}}
 {{ $casks := list
+     "font-hack-nerd-font"
+     "font-meslo-lg-nerd-font"
      "docker"
      "google-chrome"
      "google-earth-pro"
@@ -49,14 +55,14 @@ set -eufo pipefail
      "redhat.vscode-yaml" -}}
 
 brew bundle --no-lock --file=/dev/stdin --cleanup <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end -}}
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
 {{ range ($casks | sortAlpha | uniq) -}}
 cask "{{ . }}"
-{{ end -}}
-{{ range ($taps | sortAlpha | uniq) -}}
-tap "{{ . }}"
 {{ end -}}
 {{ range ($extensions | sortAlpha | uniq) -}}
 vscode "{{ . }}"
