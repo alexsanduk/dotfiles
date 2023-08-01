@@ -7,7 +7,7 @@ VIRTUALENVS=${HOME}/.local/share/virtualenvs
 
 pyenv install ${PYTHON_VERSION}
 pyenv global ${PYTHON_VERSION}
-pip install --upgrade virtualenv pip
+pyenv exec pip install --upgrade virtualenv pip
 
 rm -rf ${VIRTUALENVS}
 mkdir -p ${VIRTUALENVS}

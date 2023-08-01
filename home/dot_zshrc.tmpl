@@ -15,7 +15,6 @@ eval "$(/usr/local/bin/brew shellenv)"
 {{ end -}}
 
 # exports
-export PATH="${PATH}:${HOME}/.local/bin"
 export NEOVIM_PYTHON_EXEC='/Users/asandukovskiy/.local/virtualenvs/neovim/bin/python'
 export VISUAL=nvim
 export EDITOR="${VISUAL}"
@@ -30,8 +29,8 @@ eval "$(pyenv init -)"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
