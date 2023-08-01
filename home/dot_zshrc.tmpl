@@ -7,6 +7,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 (( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
 
+# brew
+{{ if eq .chezmoi.arch "arm64" -}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ else }}
+eval "$(/usr/local/bin/brew shellenv)"
+{{ end -}}
+
 # exports
 export PATH="${PATH}:${HOME}/.local/bin"
 export NEOVIM_PYTHON_EXEC='/Users/asandukovskiy/.local/virtualenvs/neovim/bin/python'
@@ -48,6 +55,3 @@ plugins=(
   nvm
 )
 source $ZSH/oh-my-zsh.sh
-
-# brew
-eval "$(/opt/homebrew/bin/brew shellenv)"

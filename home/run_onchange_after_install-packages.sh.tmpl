@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eufo pipefail
+
+PYTHON_VERSION=3.8.15
+VIRTUALENVS=${HOME}/.local/share/virtualenvs
+
+pyenv install ${PYTHON_VERSION}
+pyenv global ${PYTHON_VERSION}
+pip install --upgrade virtualenv pip
+
+rm -rf ${VIRTUALENVS}
+mkdir -p ${VIRTUALENVS}
+cd ${VIRTUALENVS}
+virtualenv neovim
+source neovim/bin/activate
+pip install pynvim flake8
+
+nvm install node
+npm i -g neovim 
+
+(brew --prefix)/opt/fzf/install
