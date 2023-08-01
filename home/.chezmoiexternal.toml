@@ -1,15 +1,15 @@
 [".config/nvim"]
   type = "git-repo"
-  url = "https://github.com/alexsanduk/nvim-basic-ide.git/"
+  url = "https://github.com/alexsanduk/nvim-basic-ide"
   refreshPeriod = "168h"
 [".oh-my-zsh"]
-    type = "archive"
-    url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
-    exact = true
-    stripComponents = 1
-    refreshPeriod = "168h"
+  type = "archive"
+  url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
 [".oh-my-zsh/custom/themes/powerlevel10k"]
-    type = "archive"
-    url = "https://github.com/romkatv/powerlevel10k/archive/v1.18.0.tar.gz"
-    exact = true
-    stripComponents = 1
+  type = "archive"
+  url = "https://github.com/romkatv/powerlevel10k/archive/v1.18.0.tar.gz"
+  exact = true
+  stripComponents = 1

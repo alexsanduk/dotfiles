@@ -54,7 +54,7 @@ sudo softwareupdate --install-rosetta
      "ms-vscode.cpptools"
      "redhat.vscode-yaml" -}}
 
-brew bundle --no-lock --file=/dev/stdin --cleanup <<EOF
+brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
 {{ end -}}
