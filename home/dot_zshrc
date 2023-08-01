@@ -48,3 +48,6 @@ plugins=(
   nvm
 )
 source $ZSH/oh-my-zsh.sh
+
+# brew
+eval "$(homebrew/bin/brew shellenv)"
