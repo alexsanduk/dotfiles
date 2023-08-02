@@ -1,0 +1,7 @@
+{{- $brew := "/usr/local" -}}
+{{- if eq .chezmoi.arch "arm64" -}}
+{{- $brew = "/opt/homebrew" -}}
+{{- end -}}
+
+[data]
+  brew = {{ $brew | quote }}
