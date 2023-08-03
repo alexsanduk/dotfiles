@@ -26,6 +26,7 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
+# brew
 eval "$({{- .brew -}}/bin/brew shellenv)"
 
 # exports
@@ -47,6 +48,19 @@ eval "$(pyenv init -)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "{{- .brew -}}/opt/nvm/nvm.sh" ] && \. "{{- .brew -}}/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "{{- .brew -}}/opt/nvm/etc/bash_completion.d/nvm" ] && \. "{{- .brew -}}/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# custom functions
+bootstrap_python() {
+if ! [ -f .envrc ];
+then
+cat << EOF > .envrc
+export VIRTUAL_ENV=.venv
+layout python3
+pip install pyright
+EOF
+fi;
+}
