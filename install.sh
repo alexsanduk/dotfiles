@@ -6,7 +6,7 @@ GITHUB_USERNAME="alexsanduk"
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-eval "$({{- .brew -}}/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew install chezmoi
 
