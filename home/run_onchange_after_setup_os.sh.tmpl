@@ -142,13 +142,14 @@ function reset_dock {
 
 declare -a apps=(
     '/Applications/iTerm.app'
+    '/Applications/Visual Studio Code.app'
     '/Applications/Telegram.app'
     '/Applications/Skype.app'
     '/Applications/WhatsApp.app'
+    '/Applications/zoom.us.app'
     '/Applications/Google Chrome.app'
     '/Applications/Docker.app'
     '/Applications/1Password.app'
-    '/Applications/zoom.us.app'
 );
 
 declare -a folders=(
@@ -163,7 +164,7 @@ for app in "${apps[@]}"; do
 done
 
 for folder in "${folders[@]}"; do
-    add_folder_to_dock $folder
+    add_folder_to_dock $folder -a 3 -v 1
 done
 
 killall Dock
