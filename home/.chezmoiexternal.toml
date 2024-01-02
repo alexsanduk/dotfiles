@@ -1,6 +1,6 @@
 [".config/nvim"]
   type = "git-repo"
-  url = "https://github.com/alexsanduk/nvim-basic-ide"
+  url = "https://github.com/alexsanduk/LazyVimConfig"
   refreshPeriod = "168h"
 [".oh-my-zsh"]
   type = "archive"
