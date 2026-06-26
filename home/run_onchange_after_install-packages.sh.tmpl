@@ -1,0 +1,23 @@
+#!/bin/bash
+# Brewfile hash: {{ include "dot_Brewfile" | sha256sum }}
+
+set -eufo pipefail
+
+brew bundle --global
+
+if brew commands | grep -qx autoupdate; then
+  if brew autoupdate status | grep -q "not configured"; then
+    brew autoupdate start --upgrade --cleanup --immediate
+  else
+    echo "brew autoupdate already running — skipping start."
+  fi
+else
+  echo "WARN: 'brew autoupdate' not available — skipping. Check that homebrew/autoupdate tap installed correctly." >&2
+fi
+
+# report anything installed but not in the Brewfile (non-interactive dry-run)
+echo
+echo "==> Brewfile drift (dry-run):"
+brew bundle cleanup --global < /dev/null || true
+echo
+echo "To actually remove drift: brew bundle cleanup --global --force"

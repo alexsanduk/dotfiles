@@ -1,0 +1,56 @@
+# Starship config — see https://starship.rs/config/
+
+add_newline = true
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$python\
+$cmd_duration\
+$line_break\
+$character"""
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "bold yellow"
+format = "([$all_status$ahead_behind]($style) )"
+
+[cmd_duration]
+min_time = 2_000
+format = "[$duration]($style) "
+style = "yellow"
+
+# disabled modules — keep the prompt clean
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[package]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[python]
+symbol = " "
+style = "yellow bold"
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+detect_extensions = []
+detect_files = ["pyproject.toml", "requirements.txt", "Pipfile", ".python-version"]
+detect_folders = [".venv", "venv"]
