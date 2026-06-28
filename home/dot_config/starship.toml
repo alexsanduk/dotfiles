@@ -6,7 +6,7 @@ format = """
 $directory\
 $git_branch\
 $git_status\
-$python\
+${custom.python}\
 $cmd_duration\
 $line_break\
 $character"""
@@ -48,9 +48,20 @@ disabled = true
 disabled = true
 
 [python]
+disabled = true
+
+# Custom python module: reads .python-version directly (no pyenv needed)
+# and appends active venv name when $VIRTUAL_ENV is set.
+[custom.python]
+description = "Python version from .python-version + active venv"
+when = '[ -f .python-version ] || [ -n "$VIRTUAL_ENV" ]'
+command = '''
+ver=$(cat .python-version 2>/dev/null)
+venv=""
+[ -n "$VIRTUAL_ENV" ] && venv=" ($(basename "$VIRTUAL_ENV"))"
+printf '%s%s' "$ver" "$venv"
+'''
+shell = ["bash", "--noprofile", "--norc"]
 symbol = " "
 style = "yellow bold"
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-detect_extensions = []
-detect_files = ["pyproject.toml", "requirements.txt", "Pipfile", ".python-version"]
-detect_folders = [".venv", "venv"]
+format = "[${symbol}${output}]($style) "
