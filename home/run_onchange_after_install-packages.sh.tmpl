@@ -3,6 +3,9 @@
 
 set -eufo pipefail
 
+# Pre-trust third-party taps used by the Brewfile (idempotent)
+brew trust domt4/autoupdate 2>/dev/null || true
+
 brew bundle --global
 
 if brew commands | grep -qx autoupdate; then
@@ -16,8 +19,11 @@ else
 fi
 
 # report anything installed but not in the Brewfile (non-interactive dry-run)
+# filter out brew's noisy 'Skipping X: most recent version not installed' lines for transitive deps
 echo
 echo "==> Brewfile drift (dry-run):"
-brew bundle cleanup --global < /dev/null || true
+brew bundle cleanup --global < /dev/null 2>&1 \
+  | grep -vE "^Warning: Skipping .*: most recent version .* not installed$" \
+  || true
 echo
 echo "To actually remove drift: brew bundle cleanup --global --force"
