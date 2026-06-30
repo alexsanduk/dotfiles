@@ -3,6 +3,7 @@
 add_newline = true
 
 format = """
+$hostname\
 $directory\
 $git_branch\
 $git_status\
@@ -10,6 +11,13 @@ ${custom.python}\
 $cmd_duration\
 $line_break\
 $character"""
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style) "
+style = "bold red"
+trim_at = "."
+disabled = false
 
 [character]
 success_symbol = "[❯](bold green)"

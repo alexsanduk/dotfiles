@@ -28,6 +28,13 @@ alias ...='cd ../..'
 alias gs='git status -sb'
 alias gd='git diff'
 
+# tint terminal background while ssh'd, restore on exit
+ssh() {
+  printf '\033]11;#3a1f1f\007'   # dim red
+  command ssh "$@"
+  printf '\033]11;#1d2021\007'   # gruvbox dark hard
+}
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
