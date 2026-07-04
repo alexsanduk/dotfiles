@@ -8,14 +8,19 @@ brew trust domt4/autoupdate 2>/dev/null || true
 
 brew bundle --global
 
+# brew autoupdate — restricted to the fast-moving packages that genuinely
+# benefit from daily updates. Everything else is upgraded manually via
+# `brew upgrade` when convenient. Edit this list to change the allowlist.
+AUTOUPDATE_ONLY="google-chrome,1password,1password-cli,claude-code@latest,visual-studio-code,microsoft-teams,zoom,whatsapp,telegram,gh,git"
+
 if brew commands | grep -qx autoupdate; then
-  if brew autoupdate status | grep -q "not configured"; then
-    brew autoupdate start --upgrade --cleanup --immediate
-  else
-    echo "brew autoupdate already running — skipping start."
-  fi
+  # Idempotent: delete any existing autoupdate config, then start fresh with
+  # the current allowlist. This script only re-runs when its content changes,
+  # so the restart cost is bounded.
+  brew autoupdate delete 2>/dev/null || true
+  brew autoupdate start --upgrade --cleanup --immediate --only="$AUTOUPDATE_ONLY"
 else
-  echo "WARN: 'brew autoupdate' not available — skipping. Check that homebrew/autoupdate tap installed correctly." >&2
+  echo "WARN: 'brew autoupdate' not available — skipping. Check that domt4/autoupdate tap installed correctly." >&2
 fi
 
 # report anything installed but not in the Brewfile (non-interactive dry-run)
