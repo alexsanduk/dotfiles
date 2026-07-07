@@ -1,8 +1,11 @@
 # Starship config — see https://starship.rs/config/
 
-add_newline = true
+# Separator rule between output and next prompt does the work;
+# no extra blank line needed on top.
+add_newline = false
 
 format = """
+$fill$time$line_break\
 $hostname\
 $directory\
 $git_branch\
@@ -11,6 +14,16 @@ ${custom.python}\
 $cmd_duration\
 $line_break\
 $character"""
+
+[fill]
+symbol = " "
+style = "bg:#3c3836"
+
+[time]
+disabled = false
+format = "[ $time ]($style)"
+style = "bg:#3c3836 fg:#928374"
+time_format = "%H:%M:%S"
 
 [hostname]
 ssh_only = true
