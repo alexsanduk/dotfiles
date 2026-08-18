@@ -13,12 +13,5 @@ if brew commands | grep -qx autoupdate; then
 fi
 brew untap domt4/autoupdate 2>/dev/null || true
 
-# report anything installed but not in the Brewfile (non-interactive dry-run)
-# filter out brew's noisy 'Skipping X: most recent version not installed' lines for transitive deps
-echo
-echo "==> Brewfile drift (dry-run):"
-brew bundle cleanup --global < /dev/null 2>&1 \
-  | grep -vE "^Warning: Skipping .*: most recent version .* not installed$" \
-  || true
-echo
-echo "To actually remove drift: brew bundle cleanup --global --force"
+# Brewfile drift is handled by `brewup` (~/.config/zsh/brewup.zsh), which runs
+# `brew bundle cleanup --global --force` as part of the prompted update.

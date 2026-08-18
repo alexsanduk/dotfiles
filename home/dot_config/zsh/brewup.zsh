@@ -25,7 +25,18 @@ brewup() {
   # recorded versions drift far out of sync with reality (brew still thinks zoom is
   # 5.15 while the app self-updated to 7.x), causing large redundant re-downloads and
   # force-quitting running apps.
-  brew update && brew upgrade --yes && brew cleanup || return
+  brew update && brew upgrade --yes || return
+
+  # Uninstall anything present on the machine but absent from the Brewfile, so the
+  # Brewfile stays the single source of truth. --force skips the confirmation, since
+  # you already answered the prompt above.
+  #
+  # Note this removes ad-hoc installs: `brew install httpie` to try something out, and
+  # the next brewup deletes it unless you added it to the Brewfile. That is the point,
+  # but it is easy to forget.
+  brew bundle cleanup --global --force
+
+  brew cleanup
 
   # Dotfiles are only ever *reported*, never applied. Pulling is safe, but rewriting the
   # rc files of the shell you're sitting in should stay a deliberate act.
