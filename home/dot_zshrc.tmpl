@@ -43,3 +43,6 @@ eval "$(starship init zsh)"
 
 # user bin
 export PATH="$HOME/.local/bin:$PATH"
+
+# manual package updates (replaces brew autoupdate)
+[ -f ~/.config/zsh/brewup.zsh ] && source ~/.config/zsh/brewup.zsh

@@ -3,25 +3,15 @@
 
 set -eufo pipefail
 
-# Pre-trust third-party taps used by the Brewfile (idempotent)
-brew trust domt4/autoupdate 2>/dev/null || true
-
 brew bundle --global
 
-# brew autoupdate — restricted to the fast-moving packages that genuinely
-# benefit from daily updates. Everything else is upgraded manually via
-# `brew upgrade` when convenient. Edit this list to change the allowlist.
-AUTOUPDATE_ONLY="google-chrome,1password,1password-cli,claude-code@latest,visual-studio-code,microsoft-teams,zoom,whatsapp,telegram,gh,git"
-
+# Tear down brew autoupdate. Updates are now manual and prompted: ~/.config/zsh/brewup.zsh
+# asks once every 24h on shell startup, and `brewup` runs them on demand. Nothing should
+# upgrade packages in the background.
 if brew commands | grep -qx autoupdate; then
-  # Idempotent: delete any existing autoupdate config, then start fresh with
-  # the current allowlist. This script only re-runs when its content changes,
-  # so the restart cost is bounded.
   brew autoupdate delete 2>/dev/null || true
-  brew autoupdate start --upgrade --cleanup --immediate --only="$AUTOUPDATE_ONLY"
-else
-  echo "WARN: 'brew autoupdate' not available — skipping. Check that domt4/autoupdate tap installed correctly." >&2
 fi
+brew untap domt4/autoupdate 2>/dev/null || true
 
 # report anything installed but not in the Brewfile (non-interactive dry-run)
 # filter out brew's noisy 'Skipping X: most recent version not installed' lines for transitive deps
