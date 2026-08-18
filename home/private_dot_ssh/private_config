@@ -1,5 +1,9 @@
-Host raspberry
+Host rasp_nl
   HostName 192.168.2.43
+  User alsa
+
+Host rasp_ch
+  HostName 192.168.1.43
   User alsa
 
 Host *
