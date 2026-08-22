@@ -1,6 +1,7 @@
 brew "bat"
 brew "chezmoi"
 brew "dockutil"
+brew "fd"
 brew "fzf"
 brew "gh"
 brew "git"
